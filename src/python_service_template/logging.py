@@ -14,3 +14,5 @@ def configure_logging(settings: Settings) -> None:
         level=level,
         format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
     )
+
+    logging.getLogger().info("logging configured", extra={"level": settings.log_level})
