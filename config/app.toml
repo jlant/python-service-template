@@ -1,0 +1,3 @@
+[app]
+name = "Python Service Template"
+log_level = "DEBUG"
