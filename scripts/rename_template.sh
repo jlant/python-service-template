@@ -72,6 +72,9 @@ for p in pathlib.Path(".").rglob("*"):
     if p.suffix.lower() in SKIP_SUFFIXES:
         continue
 
+    if p.name == "uv.lock":
+        continue
+
     try:
         txt = p.read_text(encoding="utf-8")
     except Exception:
