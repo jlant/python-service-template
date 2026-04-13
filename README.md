@@ -33,10 +33,10 @@ uv run nox -s tests
 ## Quick start
 
 ```bash
-uv run ppt hello
-uv run ppt hello -n Jeremiah
-uv run ppt read-config
-uv run ppt read-config -c config/app.toml
+uv run pst hello
+uv run pst hello -n Jeremiah
+uv run pst read-config
+uv run pst read-config -c config/app.toml
 ```
 
 ## Example - renaming the template

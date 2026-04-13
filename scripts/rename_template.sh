@@ -11,7 +11,7 @@ NEW_PKG="${1:?new package import name (e.g. mypkg)}"
 NEW_CLI="${2:?new cli command (e.g. mycli)}"
 NEW_PROJ="${3:?new project display name (e.g. My Project)}"
 
-OLD_PKG="pst"
+OLD_PKG="python_service_template"
 OLD_CLI="pst"
 
 # Rename package directory
@@ -27,7 +27,7 @@ import sys
 NEW_PKG = sys.argv[1]
 NEW_CLI = sys.argv[2]
 NEW_PROJ = sys.argv[3]
-OLD_PKG = "pst"
+OLD_PKG = "python_service_template"
 OLD_CLI = "pst"
 
 for p in pathlib.Path(".").rglob("*"):
