@@ -1,3 +1,7 @@
 [app]
-name = "Python Service Template"
-log_level = "DEBUG"
+name = "python-service-template"
+log_level = "INFO"
+env = "dev"
+
+[service]
+run_seconds = 1

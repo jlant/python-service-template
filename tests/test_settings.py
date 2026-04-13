@@ -10,6 +10,10 @@ def test_load_settings_from_toml_file(tmp_path: Path) -> None:
 [app]
 name = "demo-app"
 log_level = "DEBUG"
+env = "test"
+
+[service]
+run_seconds = 5
 """.strip(),
         encoding="utf-8",
     )
@@ -18,12 +22,16 @@ log_level = "DEBUG"
 
     assert settings.app_name == "demo-app"
     assert settings.log_level == "DEBUG"
+    assert settings.env == "test"
+    assert settings.run_seconds == 5
 
 
 def test_load_settings_missing_toml_file(tmp_path: Path) -> None:
-    s = load_settings(tmp_path / "missing.toml")
-    assert s.app_name == "python-service-template"
-    assert s.log_level == "INFO"
+    settings = load_settings(tmp_path / "missing.toml")
+    assert settings.app_name == "python-service-template"
+    assert settings.log_level == "INFO"
+    assert settings.env == "dev"
+    assert settings.run_seconds == 1
 
 
 def test_load_settings_without_app_table(tmp_path: Path) -> None:
@@ -40,3 +48,33 @@ value = 1
 
     assert settings.app_name == "python-service-template"
     assert settings.log_level == "INFO"
+    assert settings.env == "dev"
+    assert settings.run_seconds == 1
+
+
+def test_environment_overrides(tmp_path: Path, monkeypatch) -> None:
+    path = tmp_path / "app.toml"
+    path.write_text(
+        """
+[app]
+name = "demo-app"
+log_level = "INFO"
+env = "dev"
+
+[service]
+run_seconds = 1
+""".strip(),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setenv("PST_APP_NAME", "env-app")
+    monkeypatch.setenv("PST_LOG_LEVEL", "WARNING")
+    monkeypatch.setenv("PST_ENV", "prod")
+    monkeypatch.setenv("PST_RUN_SECONDS", "0")
+
+    settings = load_settings(path)
+
+    assert settings.app_name == "env-app"
+    assert settings.log_level == "WARNING"
+    assert settings.env == "prod"
+    assert settings.run_seconds == 0

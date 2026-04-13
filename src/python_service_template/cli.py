@@ -7,7 +7,10 @@ from typing import Annotated
 import typer
 from rich import print
 
-from .settings import Settings, load_settings
+from .config import resolve_settings
+from .logging import configure_logging
+from .service import Service
+from .settings import Settings
 
 DIST_NAME = "python-service-template"
 CLI_NAME = "pst"
@@ -33,7 +36,7 @@ def version_callback(value: bool):
 @app.callback()
 def main(
     ctx: typer.Context,
-    version: bool | None = typer.Option(
+    version_opt: bool | None = typer.Option(
         None,
         "--version",
         "-v",
@@ -47,17 +50,15 @@ def main(
 
     A minimal, production-grade Python Service Template (PST) with a CLI interface.
     """
-    # Customize behavior if no command is provided
-    if ctx.invoked_subcommand is None:
-        # This only runs if no subcommand was typed
-        pass
+    _ = ctx
+    _ = version_opt
 
 
 @app.command()
 def hello(
     name: str = typer.Option("world", "--name", "-n"),
 ) -> None:
-    """Example command that reads a TOML config file and prints a greeting."""
+    """Example command that prints a greeting."""
     print(f"[bold green]Hello, {name}![/bold green]")
 
 
@@ -65,7 +66,25 @@ def hello(
 def read_config(
     config: Annotated[Path, typer.Option("--config", "-c", exists=False)] = Path("config/app.toml"),
 ) -> None:
-    """Example command that reads a TOML config file and prints its contents."""
-    settings: Settings = load_settings(config)
+    """Read config and print resolved settings"""
+    settings: Settings = resolve_settings(config)
     print(f"app_name={settings.app_name!r}")
     print(f"log_level={settings.log_level!r}")
+    print(f"env={settings.env!r}")
+    print(f"run_seconds={settings.run_seconds!r}")
+
+
+@app.command()
+def run(
+    config: Annotated[Path, typer.Option("--config", "-c", exists=False)] = Path("config/app.toml"),
+) -> None:
+    """Run the service lifecycle once."""
+    settings = resolve_settings(config)
+    configure_logging(settings)
+
+    service = Service(settings)
+    service.start()
+    try:
+        service.run()
+    finally:
+        service.stop()
