@@ -41,6 +41,15 @@ packages = ["src/python_service_template"]
 testpaths = ["tests"]
 addopts = "-q"
 
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = ["src/python_service_template/__main__.py"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 80
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -48,7 +57,7 @@ src = ["src", "tests"]
 fix = true
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B", "SIM"]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "PTH", "RUF"]
 ignore = ["E501"]
 
 [tool.ruff.format]
@@ -56,5 +65,5 @@ quote-style = "double"
 
 [tool.pyright]
 include = ["src", "tests"]
-typeCheckingMode = "standard"
+typeCheckingMode = "strict"
 pythonVersion = "3.11"

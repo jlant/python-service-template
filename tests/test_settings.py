@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from python_service_template.settings import load_settings
 
 
@@ -52,7 +54,7 @@ value = 1
     assert settings.run_seconds == 1
 
 
-def test_environment_overrides(tmp_path: Path, monkeypatch) -> None:
+def test_environment_overrides(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     path = tmp_path / "app.toml"
     path.write_text(
         """

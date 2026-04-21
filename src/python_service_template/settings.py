@@ -4,6 +4,7 @@ import os
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 DEFAULT_APP_NAME = "python-service-template"
 DEFAULT_LOG_LEVEL = "INFO"
@@ -38,17 +39,12 @@ def load_settings(path: Path) -> Settings:
       PST_ENV
       PST_RUN_SECONDS
     """
-    data: dict[str, object] = {}
+    data: dict[str, Any] = {}
     if path.exists():
         data = tomllib.loads(path.read_text(encoding="utf-8"))
 
-    app = data.get("app", {})
-    service = data.get("service", {})
-
-    if not isinstance(app, dict):
-        app = {}
-    if not isinstance(service, dict):
-        service = {}
+    app: dict[str, Any] = data.get("app", {})
+    service: dict[str, Any] = data.get("service", {})
 
     app_name = str(app.get("name", DEFAULT_APP_NAME))
     log_level = str(app.get("log_level", DEFAULT_LOG_LEVEL))

@@ -1,26 +1,37 @@
 import nox
 
+nox.options.default_venv_backend = "uv"
 PY = ["3.11", "3.12"]
 
 
+def _install(session: nox.Session) -> None:
+    session.run_install(
+        "uv",
+        "sync",
+        "--frozen",
+        "--group",
+        "dev",
+        env={"UV_PROJECT_ENVIRONMENT": session.virtualenv.location},
+        external=True,
+    )
+
+
 @nox.session(python=PY)
-def tests(session: nox.Session) -> None:
-    session.install(".")
-    session.install("pytest", "pytest-cov")
-    session.run("pytest", "-q")
+def fmt(session: nox.Session) -> None:
+    _install(session)
+    session.run("ruff", "check", "--fix", "src", "tests")
+    session.run("ruff", "format", "src", "tests")
 
 
 @nox.session(python=PY)
 def lint(session: nox.Session) -> None:
-    session.install(".")
-    session.install("ruff", "pyright")
-    session.run("ruff", "check", "src", "tests")
+    _install(session)
+    session.run("ruff", "check", "--no-fix", "src", "tests")
     session.run("ruff", "format", "--check", "src", "tests")
     session.run("pyright")
 
 
 @nox.session(python=PY)
-def fmt(session: nox.Session) -> None:
-    session.install("ruff")
-    session.run("ruff", "format", "src", "tests")
-    session.run("ruff", "check", "--fix", "src", "tests")
+def tests(session: nox.Session) -> None:
+    _install(session)
+    session.run("pytest", "--cov", "--cov-report=term-missing")
