@@ -2,7 +2,7 @@ from pathlib import Path
 
 from typer.testing import CliRunner
 
-from python_service_template.cli import app
+from python_service_template.cli import CLI_NAME, app
 
 runner = CliRunner()
 
@@ -23,7 +23,7 @@ def test_version_flag() -> None:
     r = runner.invoke(app, ["--version"])
     assert r.exit_code == 0
     # Should print the CLI name and a version string
-    assert "pst" in r.stdout
+    assert CLI_NAME in r.stdout
 
 
 def test_read_config_missing_file(tmp_path: Path) -> None:

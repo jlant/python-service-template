@@ -95,16 +95,16 @@ def replace_file_content(
     text = text.replace(f'DIST_NAME = "{old_dist}"', f'DIST_NAME = "{new_dist}"')
     text = text.replace(f'DEFAULT_APP_NAME = "{old_dist}"', f'DEFAULT_APP_NAME = "{new_dist}"')
 
-    # Package / import paths
-    text = text.replace(f"from {old_pkg}.", f"from {new_pkg}.")
-    text = text.replace(f'"{old_pkg}.', f'"{new_pkg}.')
-    text = text.replace(f"src/{old_pkg}", f"src/{new_pkg}")
-
     # Console script entry point
     text = text.replace(
         f'{old_cli} = "{old_pkg}.cli:app"',
         f'{new_cli} = "{new_pkg}.cli:app"',
     )
+
+    # Package / import paths
+    text = text.replace(f"from {old_pkg}.", f"from {new_pkg}.")
+    text = text.replace(f'"{old_pkg}.', f'"{new_pkg}.')
+    text = text.replace(f"src/{old_pkg}", f"src/{new_pkg}")
 
     # Human-facing CLI label in code / help output
     text = text.replace(f'CLI_NAME = "{old_cli}"', f'CLI_NAME = "{new_cli}"')

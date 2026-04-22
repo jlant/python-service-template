@@ -30,6 +30,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Replaced `rename_template.sh` shell script with `rename_template.py` Python script for
   cross-platform reliability, input validation, and a `--dry-run` mode.
+- Replaced the environment variable `<CLI_NAME>_` prefix in `settings.py` with an `ENV_PREFIX = "APP"` for
+  a generic, self-documenting, and import-free way to prefix the environment variables, and it also works
+  correctly after any rename without modification.
+
+### Fixed
+
+- Text replacement in `replace_template.py` for console script entry point by reordering
+  the replacements so the console script entry point is handled before the general
+  `"{old_pkg}.` replacement
 
 [Unreleased]: https://github.com/jlant/python-service-template/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/jlant/python-service-template/releases/tag/v0.1.0

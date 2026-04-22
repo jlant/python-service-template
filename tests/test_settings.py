@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from python_service_template.settings import load_settings
+from python_service_template.settings import DEFAULT_APP_NAME, ENV_PREFIX, load_settings
 
 
 def test_load_settings_from_toml_file(tmp_path: Path) -> None:
@@ -30,7 +30,7 @@ run_seconds = 5
 
 def test_load_settings_missing_toml_file(tmp_path: Path) -> None:
     settings = load_settings(tmp_path / "missing.toml")
-    assert settings.app_name == "python-service-template"
+    assert settings.app_name == DEFAULT_APP_NAME
     assert settings.log_level == "INFO"
     assert settings.env == "dev"
     assert settings.run_seconds == 1
@@ -48,7 +48,7 @@ value = 1
 
     settings = load_settings(path)
 
-    assert settings.app_name == "python-service-template"
+    assert settings.app_name == DEFAULT_APP_NAME
     assert settings.log_level == "INFO"
     assert settings.env == "dev"
     assert settings.run_seconds == 1
@@ -69,10 +69,10 @@ run_seconds = 1
         encoding="utf-8",
     )
 
-    monkeypatch.setenv("PST_APP_NAME", "env-app")
-    monkeypatch.setenv("PST_LOG_LEVEL", "WARNING")
-    monkeypatch.setenv("PST_ENV", "prod")
-    monkeypatch.setenv("PST_RUN_SECONDS", "0")
+    monkeypatch.setenv(f"{ENV_PREFIX}_NAME", "env-app")
+    monkeypatch.setenv(f"{ENV_PREFIX}_LOG_LEVEL", "WARNING")
+    monkeypatch.setenv(f"{ENV_PREFIX}_ENV", "prod")
+    monkeypatch.setenv(f"{ENV_PREFIX}_RUN_SECONDS", "0")
 
     settings = load_settings(path)
 

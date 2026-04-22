@@ -11,6 +11,8 @@ DEFAULT_LOG_LEVEL = "INFO"
 DEFAULT_ENV = "dev"
 DEFAULT_RUN_SECONDS = 1
 
+ENV_PREFIX = "APP"
+
 
 @dataclass(frozen=True)
 class Settings:
@@ -33,11 +35,11 @@ def load_settings(path: Path) -> Settings:
     [service]
     run_seconds = 5
 
-    Supported environment overrides:
-      PST_APP_NAME
-      PST_LOG_LEVEL
-      PST_ENV
-      PST_RUN_SECONDS
+    Supported environment overrides (if ENV_PREFIX = "APP"):
+      APP_NAME
+      APP_LOG_LEVEL
+      APP_ENV
+      APP_RUN_SECONDS
     """
     data: dict[str, Any] = {}
     if path.exists():
@@ -51,10 +53,10 @@ def load_settings(path: Path) -> Settings:
     env = str(app.get("env", DEFAULT_ENV))
     run_seconds = int(service.get("run_seconds", DEFAULT_RUN_SECONDS))
 
-    app_name = os.getenv("PST_APP_NAME", app_name)
-    log_level = os.getenv("PST_LOG_LEVEL", log_level)
-    env = os.getenv("PST_ENV", env)
-    run_seconds = int(os.getenv("PST_RUN_SECONDS", str(run_seconds)))
+    app_name = os.getenv(f"{ENV_PREFIX}_NAME", app_name)
+    log_level = os.getenv(f"{ENV_PREFIX}_LOG_LEVEL", log_level)
+    env = os.getenv(f"{ENV_PREFIX}_ENV", env)
+    run_seconds = int(os.getenv(f"{ENV_PREFIX}_RUN_SECONDS", str(run_seconds)))
 
     return Settings(
         app_name=app_name,
