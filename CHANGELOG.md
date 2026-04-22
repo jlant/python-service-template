@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `pytest` with `pytest-cov` enforcing 80% minimum coverage.
 - `pre-commit` hooks for `ruff`, `ruff-format`, and common file hygiene checks.
 - GitHub Actions CI workflow running lint and tests on Python 3.11 and 3.12.
-- `rename_template.sh` script for renaming the template when starting a new project.
+- `rename_template.py` script for renaming the template when starting a new project.
 - MIT License.
 
 [Unreleased]: https://github.com/jlant/python-service-template/compare/v0.1.0...HEAD
