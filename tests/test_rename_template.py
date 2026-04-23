@@ -27,10 +27,3 @@ def test_replaces_env_var_prefix() -> None:
     result = replace_file_content(text, *OLD, *NEW)
     assert "PST_" not in result
     assert "MST_" in result
-
-
-def test_strips_rename_section_from_readme() -> None:
-    text = "## Some section\n\ncontent\n\n## Example - renaming the template\n\nshould be removed\n"
-    result = replace_file_content(text, *OLD, *NEW)
-    assert "## Example - renaming the template" not in result
-    assert "## Some section" in result

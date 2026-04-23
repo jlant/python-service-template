@@ -51,8 +51,6 @@ SKIP_SUFFIXES = {
 
 SKIP_FILES = {"uv.lock"}
 
-TEMPLATE_ONLY_SECTION_IN_README = "## Example - renaming the template"
-
 
 # Validation functions
 def validate_package_name(name: str) -> None:
@@ -126,10 +124,6 @@ def replace_file_content(
 
     # Environment variable prefix in README examples
     text = text.replace(f"{old_cli.upper()}_", f"{new_cli.upper()}_")
-
-    # Strip the rename section from README — it belongs in the template only
-    if TEMPLATE_ONLY_SECTION_IN_README in text:
-        text = text[: text.index(TEMPLATE_ONLY_SECTION_IN_README)].rstrip() + "\n"
 
     return text
 

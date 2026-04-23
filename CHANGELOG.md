@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2026-04-23
 
+### Removed
+
+- Functionality that automatically removed the "## Example - renaming the template"
+  section in the `README.md` file.
+
+
 ### Added
 
 - Tests for the `rename_template.py` script in `tests/test_rename_template.py`.
