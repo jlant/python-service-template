@@ -19,15 +19,15 @@ def _install(session: nox.Session) -> None:
 @nox.session(python=PY)
 def fmt(session: nox.Session) -> None:
     _install(session)
-    session.run("ruff", "check", "--fix", "src", "tests")
-    session.run("ruff", "format", "src", "tests")
+    session.run("ruff", "check", "--fix", "src", "tests", "scripts")
+    session.run("ruff", "format", "src", "tests", "scripts")
 
 
 @nox.session(python=PY)
 def lint(session: nox.Session) -> None:
     _install(session)
-    session.run("ruff", "check", "--no-fix", "src", "tests")
-    session.run("ruff", "format", "--check", "src", "tests")
+    session.run("ruff", "check", "--no-fix", "src", "tests", "scripts")
+    session.run("ruff", "format", "--check", "src", "tests", "scripts")
     session.run("pyright")
 
 

@@ -38,13 +38,14 @@ pst = "python_service_template.cli:app"
 packages = ["src/python_service_template"]
 
 [tool.pytest.ini_options]
+pythonpath = ["src", "scripts"]
 testpaths = ["tests"]
 addopts = "-q"
 
 [tool.coverage.run]
 source = ["src"]
 branch = true
-omit = ["src/python_service_template/__main__.py"]
+omit = ["src/python_service_template/__main__.py", "scripts/rename_template.py"]
 
 [tool.coverage.report]
 show_missing = true
@@ -53,7 +54,7 @@ fail_under = 80
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-src = ["src", "tests"]
+src = ["src", "tests", "scripts"]
 fix = true
 
 [tool.ruff.lint]
@@ -64,6 +65,8 @@ ignore = ["E501"]
 quote-style = "double"
 
 [tool.pyright]
-include = ["src", "tests"]
+include = ["src", "tests", "scripts"]
+extraPaths = ["src", "scripts"]
 typeCheckingMode = "strict"
 pythonVersion = "3.11"
+reportMissingTypeStubs = false

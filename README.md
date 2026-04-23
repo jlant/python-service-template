@@ -23,7 +23,7 @@ uv run pst hello
 uv run pst hello -n Jeremiah
 uv run pst read-config
 uv run pst run
-PST_LOG_LEVEL=DEBUG PST_RUN_SECONDS=0 uv run pst run
+APP_LOG_LEVEL=DEBUG APP_RUN_SECONDS=0 uv run pst run
 ```
 
 ## Development workflow

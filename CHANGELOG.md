@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-04-23
+
+### Added
+
+- Tests for the `rename_template.py` script in `tests/test_rename_template.py`.
+- Additional tooling configuration in `pyproject.toml` and `noxfile.py` for `pytest` and `pyright`
+  for the inclusion of the tests for the `rename_template.py` script.
+
 ## [0.1.0] - 2026-04-22
 
 ### Added
