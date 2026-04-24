@@ -112,10 +112,10 @@ def replace_file_content(
     # README / project title
     text = text.replace(f"# {old_dist}", f"# {new_proj}")
 
-    # README description
+    # CLI help header
     text = text.replace(
-        "A minimal, production-grade Python service template with a CLI interface.",
-        f"A minimal, production-grade Python service for {new_proj}.",
+        f"Python Service Template ({old_cli}) CLI Tool",
+        f"{new_proj} ({new_cli.upper()}) CLI Tool",
     )
 
     # README CLI command references in code blocks

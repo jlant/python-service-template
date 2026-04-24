@@ -46,9 +46,9 @@ def main(
     ),
 ):
     """
-    [green] Python Service Template (PST) CLI Tool[/green] :rocket:
+    [green] Python Service Template (pst) CLI Tool[/green] :rocket:
 
-    A minimal, production-grade Python Service Template (PST) with a CLI interface.
+    A minimal, production-grade Python service with a CLI interface.
     """
     _ = ctx
     _ = version_opt

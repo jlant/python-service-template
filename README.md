@@ -1,6 +1,6 @@
 # python-service-template
 
-A minimal, production-grade Python service template with a CLI interface.
+A minimal, production-grade Python service with a CLI interface.
 
 ## Tools
 
