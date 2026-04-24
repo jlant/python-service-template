@@ -26,6 +26,7 @@ from pathlib import Path
 OLD_PKG = "python_service_template"
 OLD_CLI = "pst"
 OLD_DIST = "python-service-template"
+OLD_PROJ = "Python Service Template"
 
 # File traversal config
 SKIP_DIRS = {
@@ -81,6 +82,7 @@ def replace_file_content(
     old_pkg: str,
     old_cli: str,
     old_dist: str,
+    old_proj: str,
     new_pkg: str,
     new_cli: str,
     new_dist: str,
@@ -110,11 +112,11 @@ def replace_file_content(
     text = text.replace(f'CLI_NAME = "{old_cli}"', f'CLI_NAME = "{new_cli}"')
 
     # README / project title
-    text = text.replace(f"# {old_dist}", f"# {new_proj}")
+    text = text.replace(f"# {old_proj}", f"# {new_proj}")
 
     # CLI help header
     text = text.replace(
-        f"Python Service Template ({old_cli}) CLI Tool",
+        f"{old_proj} ({old_cli}) CLI Tool",
         f"{new_proj} ({new_cli.upper()}) CLI Tool",
     )
 
@@ -169,6 +171,7 @@ def process_files(
     old_pkg: str,
     old_cli: str,
     old_dist: str,
+    old_proj: str,
     new_pkg: str,
     new_cli: str,
     new_dist: str,
@@ -185,7 +188,7 @@ def process_files(
             continue
 
         updated = replace_file_content(
-            original, old_pkg, old_cli, old_dist, new_pkg, new_cli, new_dist, new_proj
+            original, old_pkg, old_cli, old_dist, old_proj, new_pkg, new_cli, new_dist, new_proj
         )
 
         if updated != original:
@@ -244,7 +247,7 @@ def main() -> None:
     print(f"  package name : {OLD_PKG!r} -> {new_pkg!r}")
     print(f"  CLI name     : {OLD_CLI!r} -> {new_cli!r}")
     print(f"  dist name    : {OLD_DIST!r} -> {new_dist!r}")
-    print(f"  project name : {new_proj!r}")
+    print(f"  project name : {OLD_PROJ!r} -> {new_proj!r}")
 
     # Rename package directory
     rename_package_directory(root, OLD_PKG, new_pkg, dry_run)
@@ -255,6 +258,7 @@ def main() -> None:
         OLD_PKG,
         OLD_CLI,
         OLD_DIST,
+        OLD_PROJ,
         new_pkg,
         new_cli,
         new_dist,

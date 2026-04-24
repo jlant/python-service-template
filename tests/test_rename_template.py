@@ -1,6 +1,6 @@
 from rename_template import replace_file_content
 
-OLD = ("my_service_template", "mst", "my-service-template")
+OLD = ("my_service_template", "mst", "my-service-template", "My Service Template")
 NEW = ("my_service", "ms", "my-service", "My Service")
 
 

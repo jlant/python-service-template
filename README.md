@@ -1,4 +1,4 @@
-# python-service-template
+# Python Service Template
 
 A minimal, production-grade Python service with a CLI interface.
 
