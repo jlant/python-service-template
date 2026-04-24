@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-04-24
+
+### Changed
+
+- Using `DEFAULT_APP_NAME` from `settings.py` in `tests/test_config.py` instead of hard-coded app name
+- Updated the string variable names in the `OLD` variable to be more clear and generic, and to not get
+  replaced by the `rename_template.py` script.
+
 ## [0.1.0] - 2026-04-23
 
 ### Removed
