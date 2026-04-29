@@ -42,7 +42,7 @@ def test_read_config_with_file(tmp_path: Path) -> None:
 [app]
 name = "cli-test-app"
 log_level = "WARNING"
-env = "prod"
+env = "PROD"
 
 [service]
 run_seconds = 0
@@ -62,7 +62,7 @@ def test_run_command(tmp_path: Path) -> None:
 [app]
 name = "run-test"
 log_level = "INFO"
-env = "test"
+env = "TEST"
 
 [service]
 run_seconds = 0

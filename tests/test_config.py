@@ -10,7 +10,7 @@ def test_resolve_settings_with_no_path_uses_default() -> None:
     settings = resolve_settings(Path("nonexistent_config_for_testing.toml"))
     assert settings.app_name == DEFAULT_APP_NAME
     assert settings.log_level == "INFO"
-    assert settings.env == "dev"
+    assert settings.env == "DEV"
     assert settings.run_seconds == 1
 
 
@@ -21,7 +21,7 @@ def test_resolve_settings_with_explicit_path(tmp_path: Path) -> None:
 [app]
 name = "config-test-app"
 log_level = "DEBUG"
-env = "staging"
+env = "DEV"
 
 [service]
 run_seconds = 3
@@ -33,5 +33,5 @@ run_seconds = 3
 
     assert settings.app_name == "config-test-app"
     assert settings.log_level == "DEBUG"
-    assert settings.env == "staging"
+    assert settings.env == "DEV"
     assert settings.run_seconds == 3
