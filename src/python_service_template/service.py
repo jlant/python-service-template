@@ -15,7 +15,7 @@ class Service:
     started: bool = field(default=False, init=False)
 
     def start(self) -> None:
-        logger.info("starting service", extra={"app_name": self.settings.app_name})
+        logger.info("starting service app=%s env=%s", self.settings.app_name, self.settings.env)
         self.started = True
 
     def run(self) -> None:
@@ -24,15 +24,21 @@ class Service:
             raise RuntimeError(msg)
 
         logger.info(
-            "running service",
-            extra={
-                "app_name": self.settings.app_name,
-                "env": self.settings.env,
-                "run seconds": self.settings.run_seconds,
-            },
+            "running service app=%s env=%s run_seconds=%s",
+            self.settings.app_name,
+            self.settings.env,
+            self.settings.run_seconds,
         )
+
         time.sleep(self.settings.run_seconds)
 
     def stop(self) -> None:
-        logger.info("stopping service", extra={"app_name": self.settings.app_name})
+        if not self.started:
+            logger.warning("stop() called but service is not running")
+            return
+        logger.info(
+            "stopping service app=%s env=%s",
+            self.settings.app_name,
+            self.settings.env,
+        )
         self.started = False

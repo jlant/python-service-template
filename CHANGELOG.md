@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added updated `settings.py` file and corresponding tests.
+- Updated and improved `settings.py` and corresponding `test_settings.py`.
+- Updated and improved `service.py`.
 
 
 ## [0.1.0] - 2026-04-24
